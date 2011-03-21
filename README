@@ -27,4 +27,6 @@ TODO:
 * (anything else?)
 
 ::::::Akira edit::::::
-replace with last SDL framework(v.1.3).
+replace with last SDL framework(v.1.3) 
+in order to use SDL_TEXTINPUT and SDL_TEXTEDITING with 
+Chinese/Japanese/Korean characters.
