@@ -729,7 +729,7 @@ void ofxSDLAppWindow::keyDownHandler(SDL_Event* evt) {
 		} while(1);
 		
 	}
-
+	
 	// --- quit sequences -----------------
 	
 	if (sym == SDLK_ESCAPE) {
@@ -769,7 +769,7 @@ void ofxSDLAppWindow::keyUpHandler(SDL_Event* evt) {
 }
 
 void ofxSDLAppWindow::textInputHandler(SDL_Event* evt) {
-
+	
 	if (SDL_strlen(evt->text.text) == 0 || evt->text.text[0] == '\n' || markedRect.w < 0)
 		return;
 	
@@ -785,113 +785,112 @@ void ofxSDLAppWindow::textInputHandler(SDL_Event* evt) {
 	markedText[0] = 0;
 	
 	updateTextRect();
-
+	
 }
 
 void ofxSDLAppWindow::textEditHandler(SDL_Event* evt) {
-
-//	fprintf(stderr, "text editing \"%s\", selected range (%d, %d)\n",
-//			evt->edit.text, evt->edit.start, evt->edit.length);
+	
+	//	fprintf(stderr, "text editing \"%s\", selected range (%d, %d)\n",
+	//			evt->edit.text, evt->edit.start, evt->edit.length);
 	
 	strcpy(markedText, evt->edit.text);
 	cursor = evt->edit.start;
-
+	
 	updateTextRect();	
 	
 }
 
 void ofxSDLAppWindow::updateTextRect() {
-
-//	int textlen = SDL_strlen(text);
-//	for (int i = 0; i < textlen; i++) {
-//		cout << text[i];
-//	}
-	cout << text << endl;	
-	cout << markedText << endl;
-//	cout << "あああ" << endl;
 	
-//    int w = 0, h = textRect.h;
-//    SDL_Rect cursorRect, underlineRect;
-//	
-//    SDL_FillRect(gScreen, &textRect, backColor);
-//	
-//    if (*text)
-//    {
-//        RenderText(gScreen, font, text, textRect.x, textRect.y, textColor);
-//        TTF_SizeUTF8(font, text, &w, &h);
-//    }
-//	
-//    markedRect.x = textRect.x + w;
-//    markedRect.w = textRect.w - w;
-//    if (markedRect.w < 0)
-//    {
-//        SDL_Flip(screen);
-//        // Stop text input because we cannot hold any more characters
-//        SDL_StopTextInput();
-//        return;
-//    }
-//    else
-//    {
-//        SDL_StartTextInput();
-//    }
-//	
-//    cursorRect = markedRect;
-//    cursorRect.w = 2;
-//    cursorRect.h = h;
-//	
-//    SDL_FillRect(gScreen, &markedRect, backColor);
-//    if (markedText[0])
-//    {
-//        if (cursor)
-//        {
-//            char *p = utf8_advance(markedText, cursor);
-//            char c = 0;
-//            if (!p)
-//                p = &markedText[strlen(markedText)];
-//			
-//            c = *p;
-//            *p = 0;
-//            TTF_SizeUTF8(font, markedText, &w, 0);
-//            cursorRect.x += w;
-//            *p = c;
-//        }
-//        RenderText(gScreen, font, markedText, markedRect.x, markedRect.y, textColor);
-//        TTF_SizeUTF8(font, markedText, &w, &h);
-//		
-//        underlineRect = markedRect;
-//        underlineRect.y += (h - 2);
-//        underlineRect.h = 2;
-//        underlineRect.w = w;
-//		
-//        SDL_FillRect(gScreen, &underlineRect, lineColor);
-//    }
-//	
-//    SDL_FillRect(gScreen, &markedRect, backColor);
-//    if (markedText[0])
-//    {
-//        if (cursor)
-//        {
-//            char *p = utf8_advance(markedText, cursor);
-//            char c = 0;
-//            if (!p)
-//                p = &markedText[strlen(markedText)];
-//			
-//            c = *p;
-//            *p = 0;
-//            TTF_SizeUTF8(font, markedText, &w, 0);
-//            cursorRect.x += w;
-//            *p = c;
-//        }
-//        RenderText(gScreen, font, markedText, markedRect.x, markedRect.y, textColor);
-//        TTF_SizeUTF8(font, markedText, &w, &h);
-//		
-//        underlineRect = markedRect;
-//        underlineRect.y += (h - 2);
-//        underlineRect.h = 2;
-//        underlineRect.w = w;
-//		
-//        SDL_FillRect(gScreen, &underlineRect, lineColor);
-//    }
+	//	int textlen = SDL_strlen(text);
+	//	for (int i = 0; i < textlen; i++) {
+	//		cout << text[i];
+	//	}
+	//cout << text << endl;	
+	cout << markedText << endl;
+	
+	//    int w = 0, h = textRect.h;
+	//    SDL_Rect cursorRect, underlineRect;
+	//	
+	//    SDL_FillRect(gScreen, &textRect, backColor);
+	//	
+	//    if (*text)
+	//    {
+	//        RenderText(gScreen, font, text, textRect.x, textRect.y, textColor);
+	//        TTF_SizeUTF8(font, text, &w, &h);
+	//    }
+	//	
+	//    markedRect.x = textRect.x + w;
+	//    markedRect.w = textRect.w - w;
+	//    if (markedRect.w < 0)
+	//    {
+	//        SDL_Flip(screen);
+	//        // Stop text input because we cannot hold any more characters
+	//        SDL_StopTextInput();
+	//        return;
+	//    }
+	//    else
+	//    {
+	//        SDL_StartTextInput();
+	//    }
+	//	
+	//    cursorRect = markedRect;
+	//    cursorRect.w = 2;
+	//    cursorRect.h = h;
+	//	
+	//    SDL_FillRect(gScreen, &markedRect, backColor);
+	//    if (markedText[0])
+	//    {
+	//        if (cursor)
+	//        {
+	//            char *p = utf8_advance(markedText, cursor);
+	//            char c = 0;
+	//            if (!p)
+	//                p = &markedText[strlen(markedText)];
+	//			
+	//            c = *p;
+	//            *p = 0;
+	//            TTF_SizeUTF8(font, markedText, &w, 0);
+	//            cursorRect.x += w;
+	//            *p = c;
+	//        }
+	//        RenderText(gScreen, font, markedText, markedRect.x, markedRect.y, textColor);
+	//        TTF_SizeUTF8(font, markedText, &w, &h);
+	//		
+	//        underlineRect = markedRect;
+	//        underlineRect.y += (h - 2);
+	//        underlineRect.h = 2;
+	//        underlineRect.w = w;
+	//		
+	//        SDL_FillRect(gScreen, &underlineRect, lineColor);
+	//    }
+	//	
+	//    SDL_FillRect(gScreen, &markedRect, backColor);
+	//    if (markedText[0])
+	//    {
+	//        if (cursor)
+	//        {
+	//            char *p = utf8_advance(markedText, cursor);
+	//            char c = 0;
+	//            if (!p)
+	//                p = &markedText[strlen(markedText)];
+	//			
+	//            c = *p;
+	//            *p = 0;
+	//            TTF_SizeUTF8(font, markedText, &w, 0);
+	//            cursorRect.x += w;
+	//            *p = c;
+	//        }
+	//        RenderText(gScreen, font, markedText, markedRect.x, markedRect.y, textColor);
+	//        TTF_SizeUTF8(font, markedText, &w, &h);
+	//		
+	//        underlineRect = markedRect;
+	//        underlineRect.y += (h - 2);
+	//        underlineRect.h = 2;
+	//        underlineRect.w = w;
+	//		
+	//        SDL_FillRect(gScreen, &underlineRect, lineColor);
+	//    }
 	
 }
 
