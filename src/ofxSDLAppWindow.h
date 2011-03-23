@@ -17,7 +17,7 @@ class ofPoint;
 class ofBaseApp;
 
 void PrintKeyInfo( SDL_KeyboardEvent *key );
-void PrintModifiers( SDLMod mod );
+void PrintModifiers( Uint32 mod );
 
 class ofxSDLAppWindow : public ofAppBaseWindow {
 	

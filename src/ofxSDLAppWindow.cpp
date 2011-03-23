@@ -44,11 +44,11 @@ void PrintKeyInfo( SDL_KeyboardEvent *key ){
 	}
 	printf( "\n" );
 	/* Print modifier info */
-	//PrintModifiers( key->keysym.mod );
+	PrintModifiers( key->keysym.mod );
 }
 
 /* Print modifier info */
-void PrintModifiers( SDLMod mod ){
+void PrintModifiers( Uint32 mod ){
 	printf( "Modifers: " );
 	
 	/* If there are none then say so and return */
