@@ -16,7 +16,7 @@
  *
  */
 
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 
 #include "ofxSDLEvents.h"
 #include "ofxSDLApp.h"

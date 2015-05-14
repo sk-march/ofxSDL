@@ -12,9 +12,9 @@
 
 class ofxSDLApp : public ofBaseApp {	
 public:
-
-  virtual void joyButtonPressed(int device, int button) {};
-  virtual void joyButtonReleased(int device, int button) {};
-  virtual void joyAxisMoved(int device, int axis, float position) {};
-  
+    virtual void joyButtonPressed(int device, int button) {};
+    virtual void joyButtonReleased(int device, int button) {};
+    virtual void joyAxisMoved(int device, int axis, float position) {};
+    virtual void textInput(const char* txt){};
+    virtual void imeChange(const char* txt, uint32_t cursor){};
 };

@@ -10,7 +10,7 @@
  */
 
 #include "SDLMain.h"
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #include <sys/param.h> /* for MAXPATHLEN */
 #include <unistd.h>
 

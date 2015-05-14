@@ -8,12 +8,12 @@
  */
 
 #pragma once
-#include <SDL/SDL.h>
+#include <SDL2/SDL.h>
 #include "ofAppBaseWindow.h"
 
 #define MAX_TEXT_LENGTH 256
 
-class ofPoint;
+///class ofPoint;
 class ofBaseApp;
 
 void PrintKeyInfo( SDL_KeyboardEvent *key );
@@ -65,7 +65,7 @@ public:
 	int     getControllerNumAxes(int num);
 	
 	// TEXT INPUT
-	SDL_Rect textRect, markedRect;	
+	SDL_Rect textRect, markedRect;
 	char text[MAX_TEXT_LENGTH], markedText[SDL_TEXTEDITINGEVENT_TEXT_SIZE];
 	int cursor;
 	void updateTextRect();
@@ -81,9 +81,14 @@ protected:
 	void    joyMovedHandler(SDL_Event* evt);
 	void    mouseDownHandler(SDL_Event* evt);
 	void    mouseUpHandler(SDL_Event* evt);
+    void    mouseMoveHandler(SDL_Event* evt);
 	void    keyDownHandler(SDL_Event* evt);
 	void    keyUpHandler(SDL_Event* evt);
 	void	textInputHandler(SDL_Event* evt);
 	void	textEditHandler(SDL_Event* evt);
+    
+    // DISPLAY SIZING
+    virtual int		getWidth();
+    virtual int		getHeight();
 };
 
