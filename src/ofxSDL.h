@@ -21,3 +21,7 @@
 #include "ofxSDLEvents.h"
 #include "ofxSDLApp.h"
 #include "ofxSDLAppWindow.h"
+
+#ifdef _MSC_VER
+#undef main
+#endif

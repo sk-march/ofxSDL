@@ -13,6 +13,11 @@
 #include "ofxSDLApp.h"
 #include <map>
 
+#ifdef _MSC_VER
+#pragma comment(lib, "SDL2.lib")
+#pragma comment(lib, "SDL2main.lib")
+#endif
+
 void ofGLReadyCallback();
 
 static std::map<SDL_Keycode, uint32_t> sdl_ofx_keymap;
@@ -738,7 +743,7 @@ void ofxSDLAppWindow::setupOpenGL(int w, int h, int screenMode) {
     
     // create OpenGL context
     context = SDL_GL_CreateContext(gScreen);
-    if (!context) return false;
+    if (!context) return;
     
 	windowW = w;
 	windowH = h;
@@ -884,21 +889,19 @@ void ofxSDLAppWindow::runAppViaInfiniteLoop(ofBaseApp* appPtr) {
 		// finish viewport
 		
 #ifdef TARGET_WIN32
-		if (bClearAuto == false) {
+		{
 			// on a PC resizing a window with this method of accumulation (essentially single buffering)
 			// is BAD, so we clear on resize events.
 			if (nFramesSinceWindowResized < 3) {
-				glClearColor(bgPtr[0], bgPtr[1], bgPtr[2], bgPtr[3]);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			} else {
 				if (nFrameCount < 3 || nFramesSinceWindowResized < 3) {
-					SDL_GL_SwapBuffers();
+					SDL_GL_SwapWindow(gScreen);
 				} else {
-					glFlush();
+					SDL_GL_SwapWindow(gScreen);
+//					glFlush();
 				}
 			}
-		} else {
-			SDL_GL_SwapBuffers();
 		}
 #else
 /*
@@ -1082,7 +1085,7 @@ string ofxSDLAppWindow::getControllerName(int num) {
 	SDL_Joystick *joystick = SDL_JoystickOpen(num);
     string joyName(SDL_JoystickName(joystick));
 ///	string joyName(SDL_JoystickName(num));
-///	return joyName;
+	return joyName;
 }
 
 //------------------------------------------------------------
@@ -1186,18 +1189,23 @@ void ofxSDLAppWindow::mouseDownHandler(SDL_Event* evt) {
 		return;
 	}
 	
+	int button = evt->button.button;
+	if (button == SDL_BUTTON_RIGHT) button = OF_MOUSE_BUTTON_RIGHT;
+	if (button == SDL_BUTTON_LEFT) button = OF_MOUSE_BUTTON_LEFT;
+	if (button == SDL_BUTTON_MIDDLE) button = OF_MOUSE_BUTTON_MIDDLE;
+
 #ifdef OF_USING_POCO
 	mouseEventArgs.x = evt->button.x;
 	mouseEventArgs.y = evt->button.y;
-	mouseEventArgs.button = evt->button.button;
+	mouseEventArgs.button = button;
 	ofNotifyEvent(ofEvents().mousePressed, mouseEventArgs);
 #else
     if (ofAppPtr) {
         ofAppPtr->mouseX = evt->button.x;
         ofAppPtr->mouseY = evt->button.y;
-        ofAppPtr->mousePressed(evt->button.x,
-                               evt->button.y,
-                               evt->button.button); // are button consts the same as glut?
+		ofAppPtr->mousePressed(evt->button.x,
+								evt->button.y,
+								button); // are button consts the same as glut?
         // TODO: break out mouseScroll as a seperate action?
     }
 #endif
@@ -1213,10 +1221,15 @@ void ofxSDLAppWindow::mouseUpHandler(SDL_Event* evt) {
 		return;
 	}
 	
+	int button = evt->button.button;
+	if (button == SDL_BUTTON_RIGHT) button = OF_MOUSE_BUTTON_RIGHT;
+	if (button == SDL_BUTTON_LEFT) button = OF_MOUSE_BUTTON_LEFT;
+	if (button == SDL_BUTTON_MIDDLE) button = OF_MOUSE_BUTTON_MIDDLE;
+
 #ifdef OF_USING_POCO
 	mouseEventArgs.x = evt->button.x;
 	mouseEventArgs.y = evt->button.y;
-	mouseEventArgs.button = evt->button.button;
+	mouseEventArgs.button = button;//evt->button.button;
 	ofNotifyEvent(ofEvents().mouseReleased, mouseEventArgs);
 #else
     if (ofAppPtr) {
@@ -1224,7 +1237,7 @@ void ofxSDLAppWindow::mouseUpHandler(SDL_Event* evt) {
         ofAppPtr->mouseY = evt->button.y;
         ofAppPtr->mouseReleased(evt->button.x,
                                 evt->button.y,
-                                evt->button.button); // are button consts the same as glut?
+								button); // are button consts the same as glut?
         // TODO: break out mouseScroll as a seperate action?
     }
 #endif

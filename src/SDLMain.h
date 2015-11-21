@@ -8,6 +8,7 @@
  */
 
 #pragma once
+#ifdef __APPLE__
 #import <Cocoa/Cocoa.h>
 
 @interface SDLMain : NSObject
@@ -15,3 +16,4 @@
 
 @interface SDLApplication : NSApplication
 @end
+#endif
